@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mini Calendar</title>
+
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    padding: 12px;
+    background: transparent;
+    font-family: Arial, "Hiragino Kaku Gothic ProN", sans-serif;
+  }
+
+  .calendar {
+    width: 100%;
+    max-width: 340px;
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid #e5eaf0;
+  }
+
+  .header {
+    background: #bfe8f5;
+    padding: 12px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    color: #4d6875;
+  }
+
+  .weekdays,
+  .days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+  }
+
+  .weekdays {
+    padding: 10px 8px 4px;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  .days {
+    padding: 4px 8px 10px;
+    font-size: 13px;
+  }
+
+  .weekdays div,
+  .days div {
+    padding: 7px 0;
+  }
+
+  .weekday {
+    color: #5ba9c4;
+  }
+
+  .sat {
+    color: #4386c6;
+  }
+
+  .sun {
+    color: #e79aa8;
+  }
+
+  .day {
+    color: #707070;
+  }
+
+  .today {
+    background: #bfe8f5;
+    color: #356273;
+    border-radius: 50%;
+    font-weight: bold;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="calendar">
+  <div class="header" id="month"></div>
+
+  <div class="weekdays">
+    <div class="weekday">月</div>
+    <div class="weekday">火</div>
+    <div class="weekday">水</div>
+    <div class="weekday">木</div>
+    <div class="weekday">金</div>
+    <div class="sat">土</div>
+    <div class="sun">日</div>
+  </div>
+
+  <div class="days" id="days"></div>
+</div>
+
+<script>
+  const now = new Date();
+
+  const year = now.getFullYear();
+  const month = now.getMonth();
+
+  document.getElementById("month").textContent =
+    `${year}年 ${month + 1}月`;
+
+  const daysContainer = document.getElementById("days");
+
+  const firstDay = new Date(year, month, 1).getDay();
+  const lastDate = new Date(year, month + 1, 0).getDate();
+
+  const startDay = (firstDay + 6) % 7;
+
+  for (let i = 0; i < startDay; i++) {
+    daysContainer.innerHTML += "<div></div>";
+  }
+
+  for (let day = 1; day <= lastDate; day++) {
+    const date = new Date(year, month, day);
+    const dayOfWeek = date.getDay();
+
+    let className = "day";
+
+    if (dayOfWeek === 6) className += " sat";
+    if (dayOfWeek === 0) className += " sun";
+
+    if (day === now.getDate()) {
+      className += " today";
+    }
+
+    daysContainer.innerHTML +=
+      `<div class="${className}">${day}</div>`;
+  }
+</script>
+
+</body>
+</html>
