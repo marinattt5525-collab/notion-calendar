@@ -21,19 +21,19 @@
   .calendar {
     width: 100%;
     max-width: 340px;
-    background: white;
+    background: #FFFFFF;
     border-radius: 14px;
     overflow: hidden;
-    border: 1px solid #e5eaf0;
+    border: 1px solid #A3D8F6;
   }
 
   .header {
-    background: #bfe8f5;
+    background: #73C2FB;
     padding: 12px;
     text-align: center;
     font-weight: bold;
     font-size: 16px;
-    color: #4d6875;
+    color: #FFFFFF;
   }
 
   .weekdays,
@@ -59,25 +59,30 @@
     padding: 7px 0;
   }
 
+  /* 月〜金 */
   .weekday {
-    color: #5ba9c4;
+    color: #65BBE9;
   }
 
+  /* 土曜日 */
   .sat {
-    color: #4386c6;
+    color: #73C2FB;
   }
 
+  /* 日曜日 */
   .sun {
-    color: #e79aa8;
+    color: #E99AA8;
   }
 
+  /* 通常の日付 */
   .day {
-    color: #707070;
+    color: #555555;
   }
 
+  /* 今日 */
   .today {
-    background: #bfe8f5;
-    color: #356273;
+    background: #ABE1FA;
+    color: #3D7FA8;
     border-radius: 50%;
     font-weight: bold;
   }
@@ -116,6 +121,7 @@
   const firstDay = new Date(year, month, 1).getDay();
   const lastDate = new Date(year, month + 1, 0).getDate();
 
+  /* 月曜始まりに変換 */
   const startDay = (firstDay + 6) % 7;
 
   for (let i = 0; i < startDay; i++) {
@@ -131,7 +137,11 @@
     if (dayOfWeek === 6) className += " sat";
     if (dayOfWeek === 0) className += " sun";
 
-    if (day === now.getDate()) {
+    if (
+      day === now.getDate() &&
+      month === now.getMonth() &&
+      year === now.getFullYear()
+    ) {
       className += " today";
     }
 
